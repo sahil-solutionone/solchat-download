@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SolChat</title>
+
+<!-- Private company chat. Nothing here should ever be indexed. -->
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Private chat for Solution One and its clients.">
+<meta name="theme-color" content="#FAFAFA">
+<link rel="icon" type="image/png" href="app/favicon.png">
+
+<style>
+  /*
+    The console's own register, in plain CSS: Carlito, near-white grounds, a
+    hairline round everything, near-black as the one action colour. It is a
+    static page, so DeskUI cannot be imported - but the values are the same
+    ones lib/desktop draws with, and they are written down once here.
+  */
+  :root {
+    --ground:    #FAFAFA;
+    --surface:   #FFFFFF;
+    --sidebar:   #F7F7F8;
+    --hairline:  #E4E4E7;
+    --ink:       #18181B;
+    --ink-2:     #71717A;
+    --ink-3:     #A1A1AA;
+    --disabled:  #C4C4C8;
+    --radius:    8px;
+    --radius-lg: 10px;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: Carlito, "Segoe UI", system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 24px 32px;
+  }
+
+  .mark {
+    width: 56px;
+    height: 56px;
+    padding: 10px;
+    background: var(--surface);
+    border: 1px solid var(--hairline);
+    border-radius: 16px;
+  }
+  .mark img { width: 100%; height: 100%; display: block; }
+
+  h1 {
+    margin: 22px 0 6px;
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: -0.8px;
+  }
+
+  .lede {
+    margin: 0 0 4px;
+    max-width: 460px;
+    text-align: center;
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--ink-2);
+  }
+
+  /* ---------------------------------------------------------- the choices */
+
+  .options {
+    display: grid;
+    grid-template-columns: repeat(3, 240px);
+    gap: 14px;
+    margin-top: 36px;
+  }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background: var(--surface);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    color: inherit;
+    transition: border-color .12s ease, transform .12s ease;
+  }
+  a.card:hover { border-color: var(--ink-3); transform: translateY(-1px); }
+
+  .card .icon { width: 22px; height: 22px; color: var(--ink-2); }
+  .card h2 { margin: 12px 0 4px; font-size: 15px; font-weight: 600; }
+  .card p {
+    margin: 0 0 18px;
+    font-size: 12.5px;
+    line-height: 1.5;
+    color: var(--ink-2);
+    flex: 1;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 34px;
+    padding: 0 16px;
+    border: 0;
+    border-radius: var(--radius);
+    background: var(--ink);
+    color: #FAFAFA;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .btn.secondary {
+    background: transparent;
+    border: 1px solid var(--hairline);
+    color: var(--ink);
+  }
+
+  /* Shown, not hidden - Sahil, 09-01 - but plainly not ready. */
+  .card.pending { opacity: .62; }
+  .card.pending .btn { background: var(--disabled); color: var(--surface); }
+
+  .note {
+    margin-top: 28px;
+    font-size: 12.5px;
+    color: var(--ink-3);
+    text-align: center;
+  }
+
+  footer {
+    margin-top: 36px;
+    font-size: 12.5px;
+    color: var(--ink-3);
+  }
+
+  /* -------------------------------------------------------------- a phone */
+
+  .android-first { display: none; }
+
+  @media (max-width: 800px) {
+    .options { grid-template-columns: 1fr; width: 100%; max-width: 380px; }
+    h1 { font-size: 28px; }
+
+    /*
+      The web build is strictly for laptops, so on a phone the other two are
+      not choices at all - they are explained, and the APK is the only button.
+    */
+    .android-first { display: block; }
+    .card.laptop-only .btn { display: none; }
+    .card.laptop-only .laptop-note { display: block; }
+  }
+  .laptop-note { display: none; font-size: 12.5px; color: var(--ink-3); }
+</style>
+</head>
+
+<body>
+<div class="wrap">
+
+  <div class="mark"><img src="app/favicon.png" alt="SolChat"></div>
+
+  <h1>SolChat</h1>
+  <p class="lede">
+    Private chat for Solution One and its clients. Messages stay on our own
+    servers, and the conversation you have on one device is the same one on
+    the others.
+  </p>
+
+  <p class="lede android-first" style="margin-top:14px;color:var(--ink)">
+    <strong>You are on a phone.</strong> Install the Android app below -
+    the web version is built for a laptop.
+  </p>
+
+  <div class="options">
+
+    <!-- ------------------------------------------------------- Android -->
+    <a class="card" id="android" href="https://tdhkfrfdqtwyaojuueph.supabase.co/functions/v1/download">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/>
+      </svg>
+      <h2>Android</h2>
+      <p>
+        The full app. It is the only one that can tell you a message arrived
+        while it is closed.
+      </p>
+      <span class="btn">Download APK</span>
+    </a>
+
+    <!-- ----------------------------------------------------------- Web -->
+    <a class="card laptop-only" href="app/index.html">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="2" y="4" width="20" height="13" rx="2"/><path d="M2 20h20"/>
+      </svg>
+      <h2>Web</h2>
+      <p>
+        Nothing to install. Notifications work while the tab is open but not
+        in front of you.
+      </p>
+      <span class="btn secondary">Open SolChat</span>
+      <span class="laptop-note">Open this on a laptop.</span>
+    </a>
+
+    <!-- ------------------------------------------------------- Windows -->
+    <div class="card pending laptop-only">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M3 5.5 10 4.5V11H3zM11 4.3 21 3v8h-10zM3 12.5h7V19l-7-1zM11 12.5h10V21l-10-1.3z"/>
+      </svg>
+      <h2>Windows</h2>
+      <p>
+        A proper desktop application, same as the web version. Not ready to
+        download yet.
+      </p>
+      <span class="btn">Coming soon</span>
+      <span class="laptop-note">Coming soon.</span>
+    </div>
+
+  </div>
+
+  <p class="note">
+    Android will ask you to allow installing it. That is normal - SolChat is
+    not on the Play Store.
+  </p>
+
+  <footer>Solution One</footer>
+</div>
+
+<script>
+  // Android gets the download it can actually use, straight away. Everything
+  // else is left alone: a laptop should not be nudged anywhere.
+  if (/Android/i.test(navigator.userAgent)) {
+    document.getElementById('android').scrollIntoView({ block: 'center' });
+  }
+</script>
+</body>
+</html>

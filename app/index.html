@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <base href="/solchat-download/app/">
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="SolChat - private chat for Solution One and its clients.">
+
+  <!-- Private company chat. Nothing here should ever be indexed or previewed. -->
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="referrer" content="no-referrer">
+
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="SolChat">
+  <meta name="theme-color" content="#FAF9F5">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+  <link rel="icon" type="image/png" href="favicon.png"/>
+  <link rel="manifest" href="manifest.json">
+
+  <title>SolChat</title>
+
+  <style>
+    /*
+      The ivory ground is painted by the page, not by Flutter.
+
+      Flutter web shows the browser's white until the engine has booted, which
+      against #FAF9F5 is a visible flash on every load. Painting it here means
+      the first thing on screen is already the app's colour, exactly as the
+      native splash does on Android.
+    */
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: #FAF9F5;
+      overflow: hidden;
+      /* Falls back to a system stack; the real Nunito Sans ships with the app
+         bundle and takes over once Flutter has painted. */
+      font-family: "Nunito Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    #boot {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      background: #FAF9F5;
+      transition: opacity .25s ease;
+    }
+
+    #boot img { width: 72px; height: 72px; }
+
+    /*
+      A real indeterminate bar, not a fake one. It is on screen only while the
+      engine is genuinely still loading, and it is removed the moment Flutter
+      paints - it never runs on a timer.
+    */
+    #boot .track {
+      width: 132px;
+      height: 2px;
+      border-radius: 2px;
+      background: rgba(61, 57, 41, .08);
+      overflow: hidden;
+    }
+    #boot .track i {
+      display: block;
+      width: 40%;
+      height: 100%;
+      border-radius: 2px;
+      background: #1B4F8A;
+      animation: slide 1.1s ease-in-out infinite;
+    }
+    @keyframes slide {
+      0%   { transform: translateX(-100%); }
+      100% { transform: translateX(330%); }
+    }
+  </style>
+</head>
+<body>
+  <div id="boot">
+    <img src="icons/Icon-192.png" alt="SolChat">
+    <div class="track"><i></i></div>
+  </div>
+
+  <script src="flutter_bootstrap.js" async></script>
+
+  <script>
+    // Flutter calls this once the first frame is on screen. Removing the boot
+    // screen from Dart rather than on a timeout means it is never up for longer
+    // than the load actually took, and never taken down before there is
+    // something behind it.
+    window.solchatBooted = function () {
+      var boot = document.getElementById('boot');
+      if (!boot) return;
+      boot.style.opacity = '0';
+      setTimeout(function () { boot.remove(); }, 250);
+    };
+  </script>
+</body>
+</html>
