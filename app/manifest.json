@@ -1,17 +1,35 @@
 {
-  "name": "SolChat",
-  "short_name": "SolChat",
-  "start_url": ".",
-  "display": "standalone",
-  "background_color": "#FAF9F5",
-  "theme_color": "#FAF9F5",
-  "description": "Private chat for Solution One and its clients.",
-  "orientation": "any",
-  "prefer_related_applications": false,
-  "icons": [
-    { "src": "icons/Icon-192.png", "sizes": "192x192", "type": "image/png" },
-    { "src": "icons/Icon-512.png", "sizes": "512x512", "type": "image/png" },
-    { "src": "icons/Icon-maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
-    { "src": "icons/Icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
-  ]
+    "name": "SolChat",
+    "short_name": "SolChat",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#FAFAFA",
+    "theme_color": "#FAFAFA",
+    "description": "Private chat for Solution One and its clients.",
+    "orientation": "any",
+    "prefer_related_applications": false,
+    "icons": [
+        {
+            "src": "icons/Icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/Icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/Icon-maskable-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "maskable"
+        },
+        {
+            "src": "icons/Icon-maskable-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
+        }
+    ]
 }
