@@ -135,6 +135,13 @@
     text-align: center;
   }
 
+  .windows-note {
+    margin-top: 10px;
+    max-width: 520px;
+    color: var(--ink-2);
+  }
+  .windows-note strong { color: var(--ink); }
+
   footer {
     margin-top: 36px;
     font-size: 12.5px;
@@ -230,6 +237,14 @@
     Android will ask you to allow installing it, and Windows will say the
     publisher is unknown. Both are expected - SolChat is not on the Play Store
     and is not code-signed.
+  </p>
+
+  <p class="note windows-note">
+    <strong>On Windows, unblock the zip before unzipping it.</strong>
+    Right-click the downloaded file, choose Properties, tick <em>Unblock</em> at
+    the bottom, then OK. Windows tags anything downloaded and can refuse to load
+    the app's files without it - which shows up as
+    <em>&ldquo;Bad Image&rdquo;</em> naming one of them.
   </p>
 
   <footer>Solution One</footer>
